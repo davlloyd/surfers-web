@@ -12,6 +12,9 @@ spec:
   params:
   - name: clusterBuilder
     value: full
+  - name: testing_pipeline_matching_labels
+    value:
+      apps.tanzu.vmware.com/language: python
   - name: annotations
     value:
       autoscaling.knative.dev/min-scale: "1"
