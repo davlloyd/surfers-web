@@ -1,4 +1,5 @@
 import os
+import json
 from pyservicebinding import binding
 
 basedir = os.getcwd()
@@ -15,23 +16,32 @@ class Config:
     DATA_FILE = os.environ.get('DATA_FILE') or f'{basedir}/surfersweb/data/data.json'
     API_URL = os.environ.get('API_URL') or "http://surfersapi/api/v1"
 
-    try:
-        _sb = binding.ServiceBinding()
-        _db = _sb.bindings('mysql')
-    except binding.ServiceBindingRootMissingError:
-        print("Environment Variable SERVICE_BINDING_ROOT not set")
+    if 'VCAP_SERVICES' in os.environ:
+        _vcap_services = json.loads(os.environ['VCAP_SERVICES'])
+        _mysql_srv = _vcap_services['p.mysql'][0]
+        _cred = _mysql_srv['credentials']
+        if _cred:
+            SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{_cred['username']}:{_cred['password']}@{_cred['hostname']}:{_cred['port']}/{_cred['name']}"
+        else:
+            print("VCAP_SERVICES present but no db binding detected")
     else:
-        if _db:
-            SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{_db[0]['username']}:{_db[0]['password']}@{_db[0]['host']}:{_db[0]['port']}/{_db[0]['database']}"
-            print(f'Binding DB URI: {SQLALCHEMY_DATABASE_URI}')
+        try:
+            _sb = binding.ServiceBinding()
+            _db = _sb.bindings('mysql')
+        except binding.ServiceBindingRootMissingError:
+            print("Environment Variable SERVICE_BINDING_ROOT not set")
         else:
-            print('MySQL Binding not found, reverting to sqlite local store')
+            if _db:
+                SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{_db[0]['username']}:{_db[0]['password']}@{_db[0]['host']}:{_db[0]['port']}/{_db[0]['database']}"
+                print(f'Binding DB URI: {SQLALCHEMY_DATABASE_URI}')
+            else:
+                print('MySQL Binding not found, reverting to sqlite local store')
 
-        _api = _sb.bindings('api')
-        if _api:
-            API_URL = _api[0]['url']
-        else:
-            print('API Binding not found, reverting to environment variables or defaults')
+            _api = _sb.bindings('api')
+            if _api:
+                API_URL = _api[0]['url']
+            else:
+                print('API Binding not found, reverting to environment variables or defaults')
 
 
     @staticmethod

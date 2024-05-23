@@ -11,7 +11,7 @@ metadata:
 spec:
   params:
   - name: clusterBuilder
-    value: full
+    value: full-jammy
   - name: testing_pipeline_matching_labels
     value:
       apps.tanzu.vmware.com/language: python
@@ -33,9 +33,16 @@ spec:
   serviceClaims:
     - name: db
       ref:
-        apiVersion: v1
-        kind: Secret
+        apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+        kind: ClassClaim
         name: surferslookout-db
+        classRef:
+          name: aws-rds-mysql
+        parameters:
+          region: sydney
+          schemaName: mytest
+          size: small
+          storageGB: 30
     - name: api
       ref:
         apiVersion: v1
