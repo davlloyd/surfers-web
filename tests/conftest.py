@@ -1,6 +1,6 @@
 import pytest
-from surfersweb import create_app
-from surfersweb.data.models import db
+from main import create_app
+from main.data.models import db
 
 @pytest.fixture(scope="session")
 def app():
@@ -11,7 +11,7 @@ def app():
 @pytest.fixture(scope='module')
 def new_country(app):
     with app.app_context():
-        from surfersweb.data.models import Country
+        from main.data.models import Country
         _country = Country(name='Fantasia',longitude='123', latitude='456')
         return _country
 
