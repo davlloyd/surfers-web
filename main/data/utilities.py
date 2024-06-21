@@ -4,8 +4,8 @@ import sys
 import os
 from sqlalchemy.sql import text
 from flask import current_app as app
-from surfersweb.data.models import Country, State, Region, Location, Cam
-from surfersweb.data.models import db
+from main.data.models import Country, State, Region, Location, Cam
+from main.data.models import db
 
 class DataManager():
 

@@ -5,10 +5,10 @@ from pickle import TRUE
 from flask import render_template, request, redirect, abort
 from flask import current_app as app
 from . import bp
-from surfersweb.data.models import Country, State, Region, Location, Cam
-from surfersweb.services import web
-from surfersweb.services.enums import API_URL
-from surfersweb.data.utilities import DataManager
+from main.data.models import Country, State, Region, Location, Cam
+from main.services import web
+from main.services.enums import API_URL
+from main.data.utilities import DataManager
 
 
 @bp.route('/', methods=["GET"])

@@ -1,5 +1,5 @@
 import os
-from surfersweb import create_app
+from main import create_app
 from dotenv import load_dotenv
 
 # Load environment variables

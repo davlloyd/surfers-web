@@ -1,6 +1,6 @@
 from flask import render_template
 from . import bp
-from surfersweb.data.models import Location
+from main.data.models import Location
 
 @bp.app_errorhandler(404)
 def page_not_found(e):
