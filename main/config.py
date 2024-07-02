@@ -13,8 +13,8 @@ class Config:
     USER_PORT = os.environ.get('USER_PORT') or "8080"
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite://'
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('DB_TRACK_MODIFICATIONS') or False
-    DATA_FILE = os.environ.get('DATA_FILE') or f'{basedir}/surfersweb/data/data.json'
-    API_URL = os.environ.get('API_URL') or "http://surfersapi/api/v1"
+    DATA_FILE = os.environ.get('DATA_FILE') or f'{basedir}/main/data/data.json'
+    API_URL = os.environ.get('API_URL') or "https://surfersapi.alpha/api/v1"
 
     if 'VCAP_SERVICES' in os.environ:
         _vcap_services = json.loads(os.environ['VCAP_SERVICES'])
