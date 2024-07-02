@@ -14,7 +14,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite://'
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('DB_TRACK_MODIFICATIONS') or False
     DATA_FILE = os.environ.get('DATA_FILE') or f'{basedir}/main/data/data.json'
-    API_URL = os.environ.get('API_URL') or "https://surfersapi.alpha/api/v1"
+    API_URL = os.environ.get('API_URL') or "https://surfersapi.alpha"
 
     if 'VCAP_SERVICES' in os.environ:
         _vcap_services = json.loads(os.environ['VCAP_SERVICES'])
