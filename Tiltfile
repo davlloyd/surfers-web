@@ -1,8 +1,8 @@
 APP_NAME = "surfersweb"
-SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='us.gcr.io/lloyd-266015/supply-chain/surfersweb-source')
+SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.homne.tanzu.rocks/tap/supply-chain/surfersweb-source')
 LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
 NAMESPACE = os.getenv("NAMESPACE", default='alpha')
-K8S_CONTEXT = os.getenv("K8S_CONTEXT", default="home-tap-1)
+K8S_CONTEXT = os.getenv("K8S_CONTEXT", default="lab-tap-1)
 WORKLOAD_FILE = "../surfersweb-workload-db.yaml"
 
 k8s_custom_deploy(
