@@ -1,0 +1,17 @@
+apiVersion: build.tanzu.vmware.com/v1
+kind: ContainerAppBuildPlan
+metadata:
+  name: simple.tanzu.vmware.com
+  namespace: default
+spec:
+  buildpacks:
+    builder: paketobuildpacks/builder-jammy-base
+  postBuildSteps: []
+  registry: "harbor.tanzu.rocks/apps/surfersweb"
+  runtimes:
+    - name: plain
+      steps:
+        - namedTask: tanzu-kubernetes-deployment
+    - name: image
+      steps:
+        - namedTask: tanzu-container-image

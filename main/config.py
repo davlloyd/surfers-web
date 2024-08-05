@@ -5,7 +5,7 @@ from pyservicebinding import binding
 basedir = os.getcwd()
 
 class Config:
-    VERSION = '17'
+    VERSION = '18'
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret'
     SESSION_COOKIE_HTTPONLY = False
     GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
