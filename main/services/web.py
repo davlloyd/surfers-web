@@ -13,6 +13,7 @@ def get(url) -> json:
             _context = ssl._create_unverified_context()
         with urlopen(url, context=_context) as _response:
             _data = _response.read()
+            app.logger.info(f"Response: {_data}")
             _item = json.loads(_data)
             return _item
     except HTTPError as e:

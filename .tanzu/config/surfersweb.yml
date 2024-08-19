@@ -5,12 +5,27 @@ metadata:
   name: surfersweb
 spec:
   acceptedServiceBindings:
-  - name: mysql
+  - name: db
     types:
     - mysql
   build:
+    #buildpacks: {"paketobuildpacks/builder-jammy-base"}
     buildpacks: {}
     path: ../..
   ports:
   - name: main
     port: 8080
+  resources:
+    cpu: "1"
+    memory: "512Mi"
+  nonSecretEnv:
+    - name: "GOOGLE_API_KEY"
+      value: "myapikey"
+  # probes:
+  #   liveness:
+  #     httpGet:
+  #       path: "/healthz"
+  #       port: 8080
+  #       scheme: "HTTP"
+  #     initialDelaySeconds: 15
+  #     periodSeconds: 5
