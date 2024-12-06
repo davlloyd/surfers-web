@@ -18,12 +18,18 @@ class Config:
 
     if 'VCAP_SERVICES' in os.environ:
         _vcap_services = json.loads(os.environ['VCAP_SERVICES'])
-        _mysql_srv = _vcap_services['p.mysql'][0]
-        _cred = _mysql_srv['credentials']
-        if _cred:
-            SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{_cred['username']}:{_cred['password']}@{_cred['hostname']}:{_cred['port']}/{_cred['name']}"
+        if len(_vcap_services) > 0:
+            if 'p.mysql' in _vcap_services:
+                _mysql_srv = _vcap_services['p.mysql'][0]
+                _cred = _mysql_srv['credentials']
+                if _cred:
+                    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{_cred['username']}:{_cred['password']}@{_cred['hostname']}:{_cred['port']}/{_cred['name']}"
+                else:
+                    print("VCAP_SERVICES present but no db binding detected")
+            else:
+                SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
         else:
-            print("VCAP_SERVICES present but no db binding detected")
+            SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
     else:
         try:
             _sb = binding.ServiceBinding()

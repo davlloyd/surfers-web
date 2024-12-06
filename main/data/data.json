@@ -488,8 +488,8 @@
                                             "url": "https://cams.cdn-surfline.com/cdn-au/au-monavale/chunklist.m3u8"
                                         },
                                         {
-                                            "site": "Mona Vale Basin",
-                                            "url": "https://cams.cdn-surfline.com/cdn-au/au-monavalebasin/playlist.m3u8"
+                                            "site": "Mona Vale South",
+                                            "url": "https://cams.cdn-surfline.com/cdn-au/au-southmonavale/chunklist.m3u8"
                                         }
                                     ]
                                 },
